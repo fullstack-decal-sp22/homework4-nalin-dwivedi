@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/homework4-nalin-dwivedi/static/css/main.d7c36836.css",
+    "main.js": "/homework4-nalin-dwivedi/static/js/main.0bab4c48.js",
+    "index.html": "/homework4-nalin-dwivedi/index.html",
+    "main.d7c36836.css.map": "/homework4-nalin-dwivedi/static/css/main.d7c36836.css.map",
+    "main.0bab4c48.js.map": "/homework4-nalin-dwivedi/static/js/main.0bab4c48.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d7c36836.css",
+    "static/js/main.0bab4c48.js"
+  ]
+}
