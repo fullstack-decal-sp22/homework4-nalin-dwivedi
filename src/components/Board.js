@@ -9,22 +9,24 @@ function Board() {
     });
 
     let status; // display message
-    let who_won = winner(state.squares);
+    const who_won = winner(state.squares);
     if (who_won) {
-      status = `${who_won} is the winner!`;
+      status = `${who_won} is the winner! Reload for new game.`;
     } else {
-      if (state.isXNext) {
-        status = "X's turn!";
+      if (!state.squares.includes(null)) {
+        status = "It's a tie! Reload for new game.";
       } else {
-        status = "Y's turn!";
+        status = state.isXNext ? "X's turn!" : "O's turn!";
       }
     }
 
     function renderSquare(i) {
-        return <Square 
-          value={state.squares[i]} 
-          onClick={() => handleClick(i)}
-        />;
+        return (
+          <Square 
+            value={state.squares[i]} 
+            onClick={() => handleClick(i)}
+          />
+        );
     }
 
     function handleClick(i) {
@@ -53,11 +55,12 @@ function Board() {
       ];
 
       for (let i = 0; i < win_cases.length; i++) {
-        let [a, b, c] = win_cases[i];
-        if ((squares[a] && squares[b] && squares[c]) && (squares[a] === squares[b] === squares[c])) {
+        const [a, b, c] = win_cases[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
           return squares[a];
         }
       }
+
       return null;
     }
 
