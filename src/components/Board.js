@@ -1,13 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import './styles/Board.css';
 import Square from "./Square";
 
 function Board() {
+    const [state, setState] = useState({
+      squares: Array(9).fill(null), // keeping state of the board
+      isXNext: true // keeping state of which player's turn it is
+    });
 
-    const status = 'Next player: X';
+    let status; // display message
+    let who_won = winner(state.squares);
+    if (who_won) {
+      status = `${who_won} is the winner!`;
+    } else {
+      if (state.isXNext) {
+        status = "X's turn!";
+      } else {
+        status = "Y's turn!";
+      }
+    }
 
     function renderSquare(i) {
-        return <Square />;
+        return <Square 
+          value={state.squares[i]} 
+          onClick={() => handleClick(i)}
+        />;
+    }
+
+    function handleClick(i) {
+      if (winner(state.squares) || state.squares[i]) {
+        return;
+      }
+
+      let squares_copy = state.squares.slice();
+      squares_copy[i] = state.isXNext ? 'X' : 'O';
+      setState({
+        squares : squares_copy,
+        isXNext : !state.isXNext
+      });
+    }
+
+    function winner(squares) {
+      let win_cases = [
+        [0, 1, 2], // rows
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6], // columns
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8], // main diagonal
+        [2, 4, 6] // antidiagonal
+      ];
+
+      for (let i = 0; i < win_cases.length; i++) {
+        let [a, b, c] = win_cases[i];
+        if ((squares[a] && squares[b] && squares[c]) && (squares[a] === squares[b] === squares[c])) {
+          return squares[a];
+        }
+      }
+      return null;
     }
 
     return (  
